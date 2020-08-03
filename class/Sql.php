@@ -11,11 +11,16 @@
 
 		}
 
+
+		/*
+		* METODO  : setParams
+		* OBJETIVO: verifica se existem parametros, se ouver chama o metodo setParam enquanto houver parametros
+		*/
 		private function setParams($statment, $parameters = array()){
 
 			foreach ($parameters as $key => $value){
 
-				$this->setParam($key, $value);
+				$this->setParam($statment, $key, $value);
 
 			}
 
@@ -30,7 +35,12 @@
 		}
 
 
-
+		/*
+		* METODO   : query
+		* OBJETIVO : preparar o comando e chamar o metodo setParams
+		* $stmt    : prepara o comando para executar no banco
+		* setParams: espera passar o $stmt e parametros em forma de array (caso não existe parametros, por padrão, passa um array vazio) 
+		*/
 		public function query($rawQuery, $params = array()){
 
 			$stmt = $this->conn->prepare($rawQuery);
@@ -43,6 +53,12 @@
 
 		}
 
+
+		/*
+		* METODO  : select
+		* OBJETIVO: retornar chave associativas => valor
+		* $stmt   : chama o metodo query query
+		*/
 		public function select($rawQuery, $params = array()){
 
 			$stmt = $this->query($rawQuery, $params);
