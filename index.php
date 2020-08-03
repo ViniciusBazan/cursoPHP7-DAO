@@ -31,9 +31,34 @@ $search = Usuario::search("jo");
 echo json_encode($search);
 */
 
-// Carrega um usuário usando login e senha (autenticado)
+
+/* Carrega um usuário usando login e senha (autenticado)
 $usuario = new Usuario();
 $usuario->login("jose","123456");
+echo $usuario;
+*/
+
+
+/* insere e mostra um novo usuario
+$aluno = new Usuario();
+
+$aluno->setDeslogin("aluno2");
+$aluno->setDessenha("456@123");
+
+$aluno->insert();
+
+echo $aluno;
+*/
+
+
+// Atualiza um usuario
+
+$usuario = new Usuario();
+
+$usuario->loadById(8);
+
+$usuario->update("professor", "!@#$%");
+
 echo $usuario;
 
 ?>

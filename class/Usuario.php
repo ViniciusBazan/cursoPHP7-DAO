@@ -61,16 +61,13 @@
 
 			if (isset($results[0])){
 
-				$row = $results[0];
-
-				$this->setIdusuario($row['idusuario']);
-				$this->setDeslogin($row['deslogin']);
-				$this->setDessenha($row['dessenha']);
-				$this->setDtcadastro(new DateTime($row['dtcadastro']));
+				$this->setData($results[0]);
 
 			}
 
 		}
+
+
 
 		// Lista todos os usuarios
 		public static function getList(){
@@ -95,6 +92,7 @@
 		}
 
 
+		// Lista o usuario autenticado
 		public function login($login, $password){
 
 			$sql     = new Sql();
@@ -106,12 +104,9 @@
 
 			if (isset($results[0])){
 
-				$row = $results[0];
 
-				$this->setIdusuario($row['idusuario']);
-				$this->setDeslogin($row['deslogin']);
-				$this->setDessenha($row['dessenha']);
-				$this->setDtcadastro(new DateTime($row['dtcadastro']));
+				$this->setData($results[0]);
+				
 
 			} else{
 
@@ -119,6 +114,51 @@
 
 			}
 
+
+		}
+
+		// Define todos os valores dos usuarios usandos os set's
+		public function setData($data){
+
+			$this->setIdusuario($data['idusuario']);
+			$this->setDeslogin($data['deslogin']);
+			$this->setDessenha($data['dessenha']);
+			$this->setDtcadastro(new DateTime($data['dtcadastro']));
+
+		}
+
+
+		// Insere os valores no banco por meio de uma proedure criada no banco
+		public function insert(){
+
+			$sql = new Sql();
+
+			$results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)", array(
+				":LOGIN"=>$this->getDeslogin(),
+				":PASSWORD"=>$this->getDessenha()
+			));
+
+
+			if (isset($results[0])){
+				$this->setData($results[0]);
+			}
+
+		}
+
+
+		// Altera um dado do banco já existente
+		public function update($login, $password){
+
+			$this->setDeslogin($login);
+			$this->setDessenha($password);
+
+			$sql = new Sql();
+
+			$sql->query("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASSWORD WHERE idusuario = :ID", array(
+				':LOGIN'=>$this->getDeslogin(),
+				':PASSWORD'=>$this->getDessenha(),
+				':ID'=>$this->getIdusuario()
+			));
 
 		}
 
