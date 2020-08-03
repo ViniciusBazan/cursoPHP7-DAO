@@ -51,7 +51,8 @@ echo $aluno;
 */
 
 
-// Atualiza um usuario
+
+/* Atualiza um usuario
 
 $usuario = new Usuario();
 
@@ -60,5 +61,18 @@ $usuario->loadById(8);
 $usuario->update("professor", "!@#$%");
 
 echo $usuario;
+*/
+
+
+
+//
+$usuario = new Usuario();
+
+$usuario->loadById(7);
+
+$usuario->delete();
+
+echo $usuario;
+
 
 ?>

@@ -162,6 +162,23 @@
 
 		}
 
+
+		// Deleta um registro do banco
+		public function delete(){
+
+			$sql = new Sql();
+
+			$sql->query("DELETE FROM tb_usuarios WHERE idusuario = :ID", array(
+				":ID"=>$this->getIdusuario()
+			));
+
+			$this->setIdusuario(0);
+			$this->setDeslogin("");
+			$this->setDessenha("");
+			$this->setDtcadastro(new DateTime());
+
+		}
+
 		// Imprime na tela o JSON com os dados, caso alguém tente imprimir na tela o objeto da classe usuario
 		public function __toString(){
 
