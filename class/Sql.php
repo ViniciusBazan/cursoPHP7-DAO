@@ -15,6 +15,7 @@
 		/*
 		* METODO  : setParams
 		* OBJETIVO: verifica se existem parametros, se ouver chama o metodo setParam enquanto houver parametros
+		* foreach : percorre todo o array, e chama o setParam para cada parametro
 		*/
 		private function setParams($statment, $parameters = array()){
 
@@ -27,6 +28,12 @@
 		}
 
 
+
+		/*
+		* METODO   : setParam
+		* OBJETIVO : substitui o parametro recebido
+		* bindParam: troca dentro do comando a $key pelo $value
+		*/
 		private function setParam($statment, $key, $value){
 
 
